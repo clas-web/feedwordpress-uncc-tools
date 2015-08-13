@@ -1,19 +1,21 @@
 <?php
 /*
 Plugin Name: FeedWordPress: UNCC Tools
-Plugin URI: 
+Plugin URI: https://github.com/clas-web/feedwordpress-uncc-tools
 Description: Adds a UNCC Tools page to the admin menu.  When the tool is run it will correct the following problems: removing duplicate posts, and regenerating post excerpts.
 Version: 1.0
 Author: Crystal Barton
-Author URI: http://clas-pages.uncc.edu/
+Author URI: https://www.linkedin.com/in/crystalbarton
 */
 
 
-
-//----------------------------------------------------------------------------------------
-// Add the UNCC Tools admin page.
-//----------------------------------------------------------------------------------------
 add_action('admin_menu', 'fwp_uncc_tools_plugin_menu');  
+
+
+/**
+ * Add the UNCC Tools admin page.
+ */
+if( !function_exists('fwp_uncc_tools_plugin_menu') ):
 function fwp_uncc_tools_plugin_menu() 
 {
     add_management_page(
@@ -24,12 +26,13 @@ function fwp_uncc_tools_plugin_menu()
         'fwp_uncc_tools_display'            // function used to rendering the page for this menu.
     );
 }
+endif;
 
 
-
-//----------------------------------------------------------------------------------------
-// Displaying the UNCC Tools admin page.
-//----------------------------------------------------------------------------------------
+/**
+ * Displaying the UNCC Tools admin page.
+ */
+if( !function_exists('fwp_uncc_tools_display') ):
 function fwp_uncc_tools_display()
 {
 	if( isset($_GET) && isset($_GET['action']) )
@@ -37,12 +40,13 @@ function fwp_uncc_tools_display()
 	else
 		fwp_uncc_tools_display_default_page();
 }
+endif;
 
 
-
-//----------------------------------------------------------------------------------------
-// Show the default admin page.
-//----------------------------------------------------------------------------------------
+/**
+ * Show the default admin page.
+ */
+if( !function_exists('fwp_uncc_tools_display_default_page') ):
 function fwp_uncc_tools_display_default_page()
 {
 	?>
@@ -79,12 +83,13 @@ function fwp_uncc_tools_display_default_page()
 	
 	<?php
 }
+endif;
 
 
-
-//----------------------------------------------------------------------------------------
-// Show the results admin page.
-//----------------------------------------------------------------------------------------
+/**
+ * Show the results admin page.
+ */
+if( !function_exists('fwp_uncc_tools_display_results_page') ):
 function fwp_uncc_tools_display_results_page()
 {
 	switch( $_GET['action'] )
@@ -102,12 +107,13 @@ function fwp_uncc_tools_display_results_page()
 			break;
 	}
 }
+endif;
 
 
-
-//----------------------------------------------------------------------------------------
-// Create new excerpts for all posts.
-//----------------------------------------------------------------------------------------
+/**
+ * Create new excerpts for all posts.
+ */
+if( !function_exists('fwp_uncc_tools_content_to_excerpt') ):
 function fwp_uncc_tools_content_to_excerpt()
 {
 	$posts = get_posts('numberposts=-1');
@@ -119,12 +125,13 @@ function fwp_uncc_tools_content_to_excerpt()
 		wp_update_post($p);
 	}
 }
+endif;
 
 
-
-//----------------------------------------------------------------------------------------
-// Remove duplicate posts from site.
-//----------------------------------------------------------------------------------------
+/**
+ * Remove duplicate posts from site.
+ */
+if( !function_exists('fwp_uncc_tools_remove_duplicates') ):
 function fwp_uncc_tools_remove_duplicates()
 {
 	global $wpdb;
@@ -242,13 +249,18 @@ function fwp_uncc_tools_remove_duplicates()
 	else
 		echo 'no log output';
 }
+endif;
 
 
-
-//----------------------------------------------------------------------------------------
-// Create a new excerpt from the content.
-// * Copied and altered from Advanced Excerpt plugin
-//----------------------------------------------------------------------------------------
+/**
+ * Create a new excerpt from the content.
+ * -- Copied and altered from Advanced Excerpt plugin --
+ * @param  int  $id  The id of the post.
+ * @param  string  $title  The title of the post.
+ * @param  string  $content  The content of the post.
+ * @return  string  The created excerpt.
+ */
+if( !function_exists('fwp_uncc_tools_create_excerpt') ):
 function fwp_uncc_tools_create_excerpt( $id, $title, $content )
 {
 	$log = "\n\n\n".$id." - ".$title."\n";
@@ -376,4 +388,5 @@ function fwp_uncc_tools_create_excerpt( $id, $title, $content )
 		
 	return $out;
 }
+endif;
 
