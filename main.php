@@ -3,9 +3,10 @@
 Plugin Name: FeedWordPress: UNCC Tools
 Plugin URI: https://github.com/clas-web/feedwordpress-uncc-tools
 Description: Adds a UNCC Tools page to the admin menu.  When the tool is run it will correct the following problems: removing duplicate posts, and regenerating post excerpts.
-Version: 1.0
+Version: 1.1.0
 Author: Crystal Barton
 Author URI: https://www.linkedin.com/in/crystalbarton
+GitHub Plugin URI: https://github.com/clas-web/feedwordpress-uncc-tools
 */
 
 
